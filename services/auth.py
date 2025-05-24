@@ -2,7 +2,7 @@ import jwt
 from datetime import datetime, timedelta, timezone
 
 
-SECRET_KEY = "fwf123h2o"
+SECRET_KEY = "r5YhKsJGfAvN9-t4Pd83Hshw4xq1mTtD5Cn12zU0bnNKX5qO7kQvI8gqykE99BdJ"
 
 def generate_JWT_token(user_id, exp_minutes=36000):
     expiration_time = datetime.now() + timedelta(minutes=exp_minutes)

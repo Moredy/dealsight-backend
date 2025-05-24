@@ -150,7 +150,7 @@ def gerar_qrcode_otp_db(db, email: str):
 
     # Cria o QR code com o secret
     totp = pyotp.TOTP(otp_secret)
-    uri = totp.provisioning_uri(name=email, issuer_name="Monitoramento")
+    uri = totp.provisioning_uri(name=email, issuer_name="DEALSIGHT_2FA")
 
     qr = qrcode.make(uri)
     buffered = io.BytesIO()
