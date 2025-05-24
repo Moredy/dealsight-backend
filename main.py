@@ -20,7 +20,7 @@ app = FastAPI()
 app.add_middleware(AuthMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080", "https://demo.lunna.finance","https://lunna.finance", "https://monitore-ai.netlify.app", "https://dealsight.netlify.app"],  # origem real do seu front-end
+    allow_origins=["http://localhost:8080", "https://dealsight.netlify.app"],  # origem real do seu front-end
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
