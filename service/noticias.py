@@ -247,7 +247,7 @@ async def buscar_e_salvar_noticias_db(db, data: NewsScrapperSchema):
             publicada_em = date.today()
 
         nova_noticia = Noticia(
-            title=noticia["title"],
+            title=noticia["title"][:255],
             risc=noticia["risc"],
             relevance=noticia["relevance"],
             description=noticia["description"],
