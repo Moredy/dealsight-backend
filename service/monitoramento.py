@@ -476,9 +476,9 @@ async def executar_cron_para_todas_processos_empresas(db):
     empresas = db.query(Empresa).all()
 
     for empresa in empresas:
-        try:
-            print(f"Processando empresa {empresa.nome} - CNPJ: {empresa.cnpj}")
-            await cron_cadastrar_processos_empresa_db(empresa.cnpj)
-        except Exception as e:
-            print(f"Erro ao processar o juridico da {empresa.cnpj}: {e}")
-            pass
+        if empresa.monitoramento_ativo:
+            try:
+                print(f"Processando empresa {empresa.nome} - CNPJ: {empresa.cnpj}")
+                await cron_cadastrar_processos_empresa_db(empresa.cnpj)
+            except Exception as e:
+                print(f"Erro ao processar o juridico da {empresa.cnpj}: {e}")
