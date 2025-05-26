@@ -359,9 +359,9 @@ async def cron_cadastrar_dados_empresa_db(cnpj: str):
 async def cron_cadastrar_processos_empresa_db(cnpj: str):
     db = SessionLocal()
     try:
-        # Analisa apenas dos ultimos 3 meses, mas sempre puxa tudo, existe um limite de 30 analises
+        # Analisa apenas dos ultimos 3 dias, mas sempre puxa tudo, existe um limite de 30 analises
         hoje = date.today()
-        ultimos_meses = hoje - timedelta(days=90)
+        ultimos_meses = hoje - timedelta(days=3)
 
         hoje_formatado = hoje.strftime("%Y-%m-%d")
         ultimos_meses_formatado = ultimos_meses.strftime("%Y-%m-%d")
