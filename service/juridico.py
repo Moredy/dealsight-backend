@@ -157,7 +157,7 @@ async def buscar_processos_jusfy_e_salvar_db(db, cnpj: str, data_inicio:str, dat
         agent = Agent(name="ProcessAnalyzer", instructions=agent_input, model="gpt-4.1-mini")
         
         print ("Agent Input", agent_input)
-
+        contador_processos_analisados = 0
         for proc in processos:
             try:
                 numero = proc.get("cnj")
@@ -228,7 +228,7 @@ async def buscar_processos_jusfy_e_salvar_db(db, cnpj: str, data_inicio:str, dat
                     ultimo_andamento_content = ultima_movimentacao.get("content")
                     ultimo_andamento_data = ultima_movimentacao.get("step_date")
 
-                if data_dist and esta_no_intervalo(data_dist, data_inicio_date, data_fim_date):
+                if data_dist and esta_no_intervalo(data_dist, data_inicio_date, data_fim_date) and contador_processos_analisados < 30:
                     print("Analisando processo ")
 
                     result = await Runner.run(agent, input=prompt_input)
@@ -239,6 +239,7 @@ async def buscar_processos_jusfy_e_salvar_db(db, cnpj: str, data_inicio:str, dat
 
                     item = resultado[0]
 
+                    contador_processos_analisados += 1
 
                     novo_processo = Processo(
                         numero=numero,
