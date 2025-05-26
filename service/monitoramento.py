@@ -361,7 +361,7 @@ async def cron_cadastrar_processos_empresa_db(cnpj: str):
     try:
         # Analisa apenas dos ultimos 3 meses, mas sempre puxa tudo
         hoje = date.today()
-        ultimos_meses = hoje - timedelta(days=90)
+        ultimos_meses = hoje - timedelta(days=10)
 
         hoje_formatado = hoje.strftime("%Y-%m-%d")
         ultimos_meses_formatado = ultimos_meses.strftime("%Y-%m-%d")
