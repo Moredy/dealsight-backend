@@ -481,3 +481,4 @@ async def executar_cron_para_todas_processos_empresas(db):
             await cron_cadastrar_processos_empresa_db(empresa.cnpj)
         except Exception as e:
             print(f"Erro ao processar o juridico da {empresa.cnpj}: {e}")
+            pass
