@@ -265,7 +265,7 @@ async def buscar_processos_jusfy_e_salvar_db(db, cnpj: str, data_inicio:str, dat
                         vara=vara,
                         valor=valor,
                         comarca=comarca,
-                        ultimo_andamento_tipo=int(ultimo_andamento_tipo) if ultimo_andamento_tipo is not None and ultimo_andamento_tipo != '' else None,
+                        ultimo_andamento_tipo=int(ultimo_andamento_tipo) if ultimo_andamento_tipo and str(ultimo_andamento_tipo).isdigit() else None,
                         ultimo_andamento_content=ultimo_andamento_content,
                         ultimo_andamento_data=parse_data(ultimo_andamento_data),
                         assunto=assunto,
