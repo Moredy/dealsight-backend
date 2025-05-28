@@ -397,6 +397,7 @@ def gerar_excel_balanco(json_result: dict) -> StreamingResponse:
     import io
     import re
     from collections import defaultdict
+    from fastapi.responses import StreamingResponse
 
     cnpj_limpo = re.sub(r'\D', '', json_result.get('cnpj', 'cnpj_nao_informado'))
     balanco = json_result.get("balanco", {})
@@ -443,10 +444,18 @@ def gerar_excel_balanco(json_result: dict) -> StreamingResponse:
     # Conteúdo
     row = 2
     for grupo, tipos in grupos.items():
+        # Calcular totais por data antes de escrever o grupo
+        totais = {data: sum(valores[tipo].get(data, 0) for tipo in tipos) for data in datas_ordenadas}
+
+        # Linha do grupo com total ao lado (coluna B, C, etc.)
         ws.cell(row=row, column=1, value=grupo).fill = group_fill
         ws.cell(row=row, column=1).font = bold_font
+        for idx, data in enumerate(datas_ordenadas):
+            ws.cell(row=row, column=2 + idx, value=totais[data])
+            ws.cell(row=row, column=2 + idx).font = bold_font
         row += 1
 
+        # Tipos individuais
         for tipo in tipos:
             ws.cell(row=row, column=1, value=tipo)
             for idx, data in enumerate(datas_ordenadas):
@@ -465,6 +474,7 @@ def gerar_excel_balanco(json_result: dict) -> StreamingResponse:
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
+
 
 
 def json_para_excel_db(json_result: dict, tipo: str) -> StreamingResponse:
