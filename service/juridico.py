@@ -228,7 +228,7 @@ async def buscar_processos_jusfy_e_salvar_db(db, cnpj: str, data_inicio:str, dat
                     ultimo_andamento_content = ultima_movimentacao.get("content")
                     ultimo_andamento_data = ultima_movimentacao.get("step_date")
 
-                if data_dist and esta_no_intervalo(data_dist, data_inicio_date, data_fim_date) and contador_processos_analisados < 30:
+                if data_dist and esta_no_intervalo(data_dist, data_inicio_date, data_fim_date) and contador_processos_analisados < 50:
                     print("Analisando processo ")
 
                     result = await Runner.run(agent, input=prompt_input)
